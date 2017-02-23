@@ -3,6 +3,8 @@
 ## Config
 
 ~~~
-
-
+app:
+  temp_dir: default
+archive:
+  compression_format: bzip2
 ~~~
