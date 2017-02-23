@@ -55,7 +55,7 @@ func (c archiveConfig) String() string {
 }
 
 func (c archiveConfig) Debug() {
-	Debug("Archive Config = ", c)
+	pp.Println("Archive Config = ", c)
 }
 
 func init() {
