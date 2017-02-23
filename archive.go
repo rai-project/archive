@@ -1,84 +1,42 @@
 package archive
 
 import (
-	"fmt"
-	"strings"
+	"io"
 
-	"github.com/k0kubun/pp"
-	"github.com/pkg/errors"
-
-	"github.com/Sirupsen/logrus"
-	"github.com/Unknwon/com"
-	"github.com/mholt/archiver"
-
-	"github.com/rai-project/utils"
+	"github.com/docker/docker/pkg/archive"
 )
 
-const (
-	FileExtension = ".tar.bz2"
-	MimeType      = "application/gzip"
-)
-
-var (
-	log                *logrus.Entry
-	directorySizeLimit = int64(200 * com.MByte)
-	format             = archiver.TarBz2
-)
-
-func Zip(targetFile string, inputDir string) (string, error) {
-	if !com.IsDir(inputDir) {
-		msg := "Directory " + inputDir + " not found"
-		log.Error(msg)
-		return "", errors.New(msg)
-	}
-	dirSize, err := utils.DirSize(inputDir)
-	if err != nil {
-		msg := "Cannot get size of inputDirectory."
-		log.WithField("directory", inputDir).Error(msg)
-		return "", errors.New(msg)
-	}
-	if dirSize > directorySizeLimit {
-		msg := fmt.Sprintf(
-			"Directory size limit exceeded (%v). The directory must be %v bytes or less.",
-			dirSize,
-			directorySizeLimit,
-		)
-		log.WithField("directory", inputDir).
-			WithField("directory_size", dirSize).
-			WithField("limit", directorySizeLimit).
-			Error(msg)
-		return "", errors.New(msg)
-	}
-	allfiles, err := com.GetFileListBySuffix(inputDir, "")
-	pp.Println(allfiles)
-	if err != nil {
-		log.WithError(err).Error("Failed to get directory " + inputDir + " contents.")
-		return "", err
-	}
-	files := []string{}
-	for _, file := range allfiles {
-		if strings.Contains(file, ".git") {
-			continue
-		}
-		files = append(files, file)
-	}
-	err = format.Make(targetFile, files)
-	if err != nil {
-		log.WithError(err).Error("Failed to create archive for " + inputDir + ".")
-		return "", err
-	}
-	if err != nil {
-		log.WithError(err).Error("Failed to create archive for " + inputDir + ".")
-		return "", err
-	}
-	return targetFile, nil
+func DecompressStream(reader io.Reader) (io.ReadCloser, error) {
+	return archive.DecompressStream(reader)
 }
 
-func Unzip(targetDir string, fileName string) (string, error) {
-	err := format.Open(fileName, targetDir)
-	if err != nil {
-		log.WithError(err).Error("Failed to open archive " + fileName + ".")
-		return "", err
-	}
-	return targetDir, nil
+func CompressStream(dest io.Writer) (io.WriteCloser, error) {
+	return archive.CompressStream(dest, Config.CompressionFormat)
+}
+
+func Zip(path string) (io.ReadCloser, error) {
+	return archive.TarWithOptions(path, &archive.TarOptions{
+		IncludeSourceDir: true,
+		Compression:      Config.CompressionFormat,
+		ExcludePatterns: []string{
+			"*.git",
+		},
+	})
+}
+
+func Unzip(tarArchive io.Reader, destPath string) error {
+	return archive.Untar(tarArchive,
+		destPath,
+		&archive.TarOptions{
+			Compression:      Config.CompressionFormat,
+			IncludeSourceDir: true,
+		},
+	)
+}
+
+// reads the content of src into a temporary file, and returns the contents
+// of that file as an archive. The archive can only be read once - as soon as reading completes,
+// the file will be deleted.
+func ZipToArchive(src io.Reader) (*archive.TempArchive, error) {
+	return archive.NewTempArchive(src, Config.TempDir)
 }

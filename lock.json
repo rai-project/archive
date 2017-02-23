@@ -1,5 +1,5 @@
 {
-    "memo": "e6016671604640448c447224299546cc40cc08e76d13a43aa44fa41affdaf2e6",
+    "memo": "566e791651efbc8e4f3e24b6f708261ea34b904ca849a94ed1586dde4f6939c3",
     "projects": [
         {
             "name": "github.com/GeertJohan/go-sourcepath",
@@ -10,9 +10,17 @@
             ]
         },
         {
+            "name": "github.com/Microsoft/go-winio",
+            "version": "v0.3.8",
+            "revision": "fff283ad5116362ca252298cfc9b95828956d85d",
+            "packages": [
+                "."
+            ]
+        },
+        {
             "name": "github.com/Sirupsen/logrus",
             "branch": "master",
-            "revision": "3f603f494d61c73457fb234161d8982b9f0f0b71",
+            "revision": "7f4b1adc791766938c29457bed0703fb9134421a",
             "packages": [
                 ".",
                 "hooks/syslog"
@@ -21,42 +29,31 @@
         {
             "name": "github.com/Unknwon/com",
             "branch": "master",
-            "revision": "28b053d5a2923b87ce8c5a08f3af779894a72758",
+            "revision": "0db4a625e949e956314d7d1adea9bf82384cc10c",
             "packages": [
                 "."
             ]
         },
         {
-            "name": "github.com/aws/aws-sdk-go",
-            "branch": "master",
-            "revision": "4590e9b51cd6698144a025a75608fa7a90752d5d",
-            "packages": [
-                "aws",
-                "aws/credentials",
-                "aws/session",
-                "service/kinesis"
-            ]
-        },
-        {
             "name": "github.com/davecgh/go-spew",
             "version": "v1.1.0",
-            "revision": "346938d642f2ec3594ed81d874461961cd0faa76",
+            "revision": "a7a0063072ed89d04285d3d3362aa590ed9f7878",
             "packages": [
                 "spew"
             ]
         },
         {
-            "name": "github.com/dsnet/compress",
+            "name": "github.com/docker/docker",
             "branch": "master",
-            "revision": "b9aab3c6a04eef14c56384b4ad065e7b73438862",
+            "revision": "40532143c2c4cf1359fd8484789b81c1f1f59d98",
             "packages": [
-                "bzip2"
+                "pkg/archive"
             ]
         },
         {
-            "name": "github.com/evalphobia/logrus_kinesis",
+            "name": "github.com/docker/go-units",
             "branch": "master",
-            "revision": "3a9524d4e5540cc81c920ee17bd8ad1d47437f5d",
+            "revision": "0dadbb0345b35ec7ef35e228dabb8de89a65bf52",
             "packages": [
                 "."
             ]
@@ -64,7 +61,7 @@
         {
             "name": "github.com/fatih/color",
             "branch": "master",
-            "revision": "bf82308e8c8546dc2b945157173eb8a959ae9505",
+            "revision": "7824417a424b65227be8ac9b14d545a7f3e6c3f0",
             "packages": [
                 "."
             ]
@@ -72,7 +69,7 @@
         {
             "name": "github.com/fatih/structs",
             "branch": "master",
-            "revision": "dc3312cb1a4513a366c4c9e622ad55c32df12ed3",
+            "revision": "a720dfa8df582c51dee1b36feabb906bde1588bd",
             "packages": [
                 "."
             ]
@@ -86,14 +83,6 @@
             ]
         },
         {
-            "name": "github.com/go-ini/ini",
-            "version": "v1.24.0",
-            "revision": "e3c2d47c61e5333f9aa2974695dd94396eb69c75",
-            "packages": [
-                "."
-            ]
-        },
-        {
             "name": "github.com/hashicorp/hcl",
             "branch": "master",
             "revision": "372e8ddaa16fd67e371e9323807d056b799360af",
@@ -102,17 +91,9 @@
             ]
         },
         {
-            "name": "github.com/jmespath/go-jmespath",
-            "version": "0.2.2",
-            "revision": "3433f3ea46d9f8019119e7dd41274e112a2359a9",
-            "packages": [
-                "."
-            ]
-        },
-        {
             "name": "github.com/k0kubun/pp",
             "branch": "master",
-            "revision": "f5dce6ed0ccf6c350f1679964ff6b61f3d6d2033",
+            "revision": "d1532fc5d94ecdf2da29e24d7b99721f3287de4a",
             "packages": [
                 "."
             ]
@@ -128,7 +109,7 @@
         {
             "name": "github.com/mattn/go-colorable",
             "branch": "master",
-            "revision": "d228849504861217f796da67fae4f6e347643f15",
+            "revision": "5411d3eea5978e6cdc258b30de592b60df6aba96",
             "packages": [
                 "."
             ]
@@ -136,15 +117,7 @@
         {
             "name": "github.com/mattn/go-isatty",
             "branch": "master",
-            "revision": "30a891c33c7cde7b02a981314b4228ec99380cca",
-            "packages": [
-                "."
-            ]
-        },
-        {
-            "name": "github.com/mholt/archiver",
-            "branch": "master",
-            "revision": "24d540239654d76e79c8f4e3d5bd56d90712becb",
+            "revision": "dda3de49cbfcec471bd7a70e6cc01fcc3ff90109",
             "packages": [
                 "."
             ]
@@ -166,11 +139,12 @@
             ]
         },
         {
-            "name": "github.com/nwaples/rardecode",
-            "branch": "master",
-            "revision": "f22b7ef81a0afac9ce1447d37e5ab8e99fbd2f73",
+            "name": "github.com/opencontainers/runc",
+            "version": "v0.1.1",
+            "revision": "baf6536d6259209c3edfa2b22237af82942d3dfa",
             "packages": [
-                "."
+                "libcontainer/system",
+                "libcontainer/user"
             ]
         },
         {
@@ -184,15 +158,7 @@
         {
             "name": "github.com/pelletier/go-toml",
             "branch": "master",
-            "revision": "d1fa2118c12c44e4f5004da216d1efad10cb4924",
-            "packages": [
-                "."
-            ]
-        },
-        {
-            "name": "github.com/pkg/errors",
-            "branch": "master",
-            "revision": "248dadf4e9068a0b3e79f02ed0a610d935de5302",
+            "revision": "22139eb5469018e7374b3e7ef653de37ffb44f72",
             "packages": [
                 "."
             ]
@@ -208,7 +174,7 @@
         {
             "name": "github.com/rai-project/config",
             "branch": "master",
-            "revision": "f52ed1ceef260d86c450ac8699a4fb48b8be1ec7",
+            "revision": "655adcc9cc81726db7ba9d81157c9a028029692a",
             "packages": [
                 "."
             ]
@@ -224,15 +190,7 @@
         {
             "name": "github.com/rai-project/logger",
             "branch": "master",
-            "revision": "c2cee355c0b630c5f6c2c169bdf541b32c9f8b06",
-            "packages": [
-                "."
-            ]
-        },
-        {
-            "name": "github.com/rai-project/utils",
-            "branch": "master",
-            "revision": "68e0c4763d64c26356df01b176256ec8d9671b9b",
+            "revision": "03464c07fcdd71ef8f4f86106a93901aa6272de5",
             "packages": [
                 "."
             ]
@@ -240,7 +198,7 @@
         {
             "name": "github.com/rai-project/vipertags",
             "branch": "master",
-            "revision": "4c19aeb860712d64f43acda5c25fd8d83b940a02",
+            "revision": "c548926ed2e6b30c7bd8020849e386ea9d4d15c4",
             "packages": [
                 "."
             ]
@@ -290,29 +248,31 @@
             "version": "v1.1.4",
             "revision": "69483b4bd14f5845b5a1e55bca19e954e827f1d0",
             "packages": [
-                "assert"
+                "assert",
+                "suite"
             ]
         },
         {
-            "name": "github.com/ulikunitz/xz",
+            "name": "golang.org/x/net",
             "branch": "master",
-            "revision": "76f94b7c69c6f84be96bcfc2443042b198689565",
+            "revision": "b4690f45fa1cafc47b1c280c2e75116efe40cc13",
             "packages": [
-                "."
+                "context"
             ]
         },
         {
             "name": "golang.org/x/sys",
             "branch": "master",
-            "revision": "7a6e5648d140666db5d920909e082ca00a87ba2c",
+            "revision": "075e574b89e4c2d22f2286a7e2b919519c6f3547",
             "packages": [
-                "unix"
+                "unix",
+                "windows"
             ]
         },
         {
             "name": "golang.org/x/text",
             "branch": "master",
-            "revision": "06d6eba81293389cafdff7fca90d75592194b2d9",
+            "revision": "85c29909967d7f171f821e7a42e7b7af76fb9598",
             "packages": [
                 "transform",
                 "unicode/norm"

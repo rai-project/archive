@@ -2,20 +2,19 @@ package: github.com/rai-project/archive
 import:
 - package: github.com/Sirupsen/logrus
   version: ~0.11.2
-- package: github.com/Unknwon/com
-  version: ~1.0.0
+- package: github.com/docker/docker
+  version: ~17.3.0-ce-rc1
+  subpackages:
+  - pkg/archive
 - package: github.com/k0kubun/pp
   version: ~2.3.0
-- package: github.com/mholt/archiver
-  version: ~2.0.0
-- package: github.com/pkg/errors
-  version: ~0.8.0
 - package: github.com/rai-project/config
 - package: github.com/rai-project/logger
-- package: github.com/rai-project/utils
+- package: github.com/rai-project/vipertags
 testImport:
 - package: github.com/GeertJohan/go-sourcepath
 - package: github.com/stretchr/testify
   version: ~1.1.4
   subpackages:
   - assert
+  - suite
