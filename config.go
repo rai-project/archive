@@ -14,7 +14,7 @@ import (
 
 type archiveConfig struct {
 	TempDir                 string              `json:"temp_dir" config"app.temp_dir" default:"default"`
-	CompressionFormatString string              `json:"compression_format" config:"archive.format" default:"bzip2"`
+	CompressionFormatString string              `json:"compression_format" config:"archive.format" default:"gzip"`
 	CompressionFormat       archive.Compression `json:"-" config:"-"`
 }
 
