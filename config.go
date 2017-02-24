@@ -2,7 +2,6 @@ package archive
 
 import (
 	"io/ioutil"
-	"strings"
 
 	"os"
 
@@ -38,16 +37,7 @@ func (a *archiveConfig) Read() {
 		}
 		a.TempDir = pth
 	}
-	switch strings.TrimRight(strings.ToLower(a.CompressionFormatString), "tar") {
-	case "xz":
-		a.CompressionFormat = archive.Xz
-	case "gzip":
-		a.CompressionFormat = archive.Gzip
-	case "bzip2":
-		a.CompressionFormat = archive.Bzip2
-	default:
-		a.CompressionFormat = archive.Bzip2
-	}
+	a.CompressionFormat = parseFormat(a.CompressionFormatString)
 }
 
 func (c archiveConfig) String() string {

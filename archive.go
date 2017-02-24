@@ -10,25 +10,43 @@ func DecompressStream(reader io.Reader) (io.ReadCloser, error) {
 	return archive.DecompressStream(reader)
 }
 
-func CompressStream(dest io.Writer) (io.WriteCloser, error) {
-	return archive.CompressStream(dest, Config.CompressionFormat)
+func CompressStream(dest io.Writer, opts ...Option) (io.WriteCloser, error) {
+	options := Options{
+		format: Config.CompressionFormat,
+	}
+	for _, o := range opts {
+		o(&options)
+	}
+	return archive.CompressStream(dest, options.format)
 }
 
-func Zip(path string) (io.ReadCloser, error) {
+func Zip(path string, opts ...Option) (io.ReadCloser, error) {
+	options := Options{
+		format: Config.CompressionFormat,
+	}
+	for _, o := range opts {
+		o(&options)
+	}
 	return archive.TarWithOptions(path, &archive.TarOptions{
 		IncludeSourceDir: true,
-		Compression:      Config.CompressionFormat,
+		Compression:      options.format,
 		ExcludePatterns: []string{
 			"*.git",
 		},
 	})
 }
 
-func Unzip(tarArchive io.Reader, destPath string) error {
+func Unzip(tarArchive io.Reader, destPath string, opts ...Option) error {
+	options := Options{
+		format: Config.CompressionFormat,
+	}
+	for _, o := range opts {
+		o(&options)
+	}
 	return archive.Untar(tarArchive,
 		destPath,
 		&archive.TarOptions{
-			Compression:      Config.CompressionFormat,
+			Compression:      options.format,
 			IncludeSourceDir: true,
 		},
 	)
