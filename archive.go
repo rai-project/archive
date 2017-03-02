@@ -28,7 +28,7 @@ func Zip(path string, opts ...Option) (io.ReadCloser, error) {
 		o(&options)
 	}
 	return archive.TarWithOptions(path, &archive.TarOptions{
-		IncludeSourceDir: true,
+		IncludeSourceDir: false,
 		Compression:      options.format,
 		ExcludePatterns: []string{
 			"*.git",
