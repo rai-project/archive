@@ -6,6 +6,25 @@ import (
 	"github.com/docker/docker/pkg/archive"
 )
 
+func MimeType(opts ...Option) string {
+	options := Options{
+		format: Config.CompressionFormat,
+	}
+	for _, o := range opts {
+		o(&options)
+	}
+	switch options.format {
+	case archive.Bzip2:
+		return "application/bzip2"
+	case archive.Gzip:
+		return "application/x-gzip"
+	case archive.Xz:
+		return "application/x-xz"
+	default:
+		return "application/x-gzip"
+	}
+}
+
 func DecompressStream(reader io.Reader) (io.ReadCloser, error) {
 	return archive.DecompressStream(reader)
 }
