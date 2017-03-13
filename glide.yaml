@@ -3,7 +3,7 @@ import:
 - package: github.com/Sirupsen/logrus
   version: ~0.11.4
 - package: github.com/docker/docker
-  version: ~17.3.0-ce-rc1
+  version: master
   subpackages:
   - pkg/archive
 - package: github.com/k0kubun/pp
