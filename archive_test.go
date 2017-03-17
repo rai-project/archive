@@ -1,11 +1,14 @@
 package archive
 
 import (
+	"io"
+	"io/ioutil"
 	"os"
 	"path/filepath"
 	"testing"
 
 	"github.com/GeertJohan/go-sourcepath"
+	"github.com/Unknwon/com"
 	"github.com/rai-project/config"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/suite"
@@ -19,18 +22,36 @@ type ArchiveTestSuite struct {
 
 func (suite *ArchiveTestSuite) TestCompressStream() {
 	t := suite.T()
-	tmpDir := suite.tmpDir
+	fixturesDir := suite.fixturesDir
 
-	path := filepath.Join(tmpDir, "dest")
-	dest, err := os.Create(path)
-	if err != nil {
-		t.Fatalf("Fail to create the destination file")
-	}
-	defer dest.Close()
-	defer os.Remove(path)
+	in, err := os.Open(fixturesDir)
+	assert.NoError(t, err, "failed to open fixturesDir=%v", fixturesDir)
+	defer in.Close()
 
-	_, err = CompressStream(dest)
+	_, err = CompressStream(in)
 	assert.NoError(t, err, "failed to compress stream")
+}
+
+func (suite *ArchiveTestSuite) TestZip() {
+	t := suite.T()
+	fixturesDir := suite.fixturesDir
+
+	w, err := Zip(fixturesDir)
+	assert.NoError(t, err, "failed to compress stream fixturesDir=%v", fixturesDir)
+
+	dest := filepath.Join(suite.tmpDir, "testzip.tar.gz")
+	tmpDir, err := os.Create(dest)
+	assert.NoError(t, err, "failed to open dest=%v", dest)
+	defer tmpDir.Close()
+
+	_, err = io.Copy(tmpDir, w)
+	assert.NoError(t, err, "failed to copy data to dest=%v", dest)
+
+	assert.Equal(t, true, com.IsFile(dest), "dest exists")
+
+	sz, err := com.FileSize(dest)
+	assert.NoError(t, err, "failed to get file size for dest=%v", dest)
+	assert.NotEqual(t, 0, sz, "file size must not be 0")
 }
 
 func (suite *ArchiveTestSuite) TestDecompressStream() {
@@ -51,11 +72,18 @@ func (suite *ArchiveTestSuite) TestDecompressStream() {
 }
 
 func TestArchive(t *testing.T) {
+	tmpDir := Config.TempDir
+	if Config.TempDir == "" {
+		if t, err := ioutil.TempDir("", "raiarchive"); err == nil {
+			tmpDir = t
+		}
+	}
+	t.Logf("using %v as temp dir", tmpDir)
 	suite.Run(
 		t,
 		&ArchiveTestSuite{
 			fixturesDir: filepath.Join(sourcepath.MustAbsoluteDir(), "_fixtures"),
-			tmpDir:      Config.TempDir,
+			tmpDir:      tmpDir,
 		},
 	)
 }

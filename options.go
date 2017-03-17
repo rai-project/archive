@@ -7,7 +7,8 @@ import (
 )
 
 type Options struct {
-	format archive.Compression
+	includeSourceDir bool
+	format           archive.Compression
 }
 
 type Option func(*Options)
@@ -30,13 +31,19 @@ func GZipFormat() Option {
 	return Format("gzip")
 }
 
+func IncludeSourceDir(b bool) Option {
+	return func(o *Options) {
+		o.includeSourceDir = b
+	}
+}
+
 func parseFormat(format string) archive.Compression {
-	switch strings.TrimRight(strings.ToLower(format), "tar") {
+	switch strings.TrimLeft(strings.ToLower(format), "tar.") {
 	case "xz":
 		return archive.Xz
-	case "gzip":
+	case "gzip", "gunzip":
 		return archive.Gzip
-	case "bzip2":
+	case "bzip", "bzip2":
 		return archive.Bzip2
 	default:
 		return archive.Gzip

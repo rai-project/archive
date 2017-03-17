@@ -25,6 +25,16 @@ func MimeType(opts ...Option) string {
 	}
 }
 
+func Extension(opts ...Option) string {
+	options := Options{
+		format: Config.CompressionFormat,
+	}
+	for _, o := range opts {
+		o(&options)
+	}
+	return options.format.Extension()
+}
+
 func DecompressStream(reader io.Reader) (io.ReadCloser, error) {
 	return archive.DecompressStream(reader)
 }
@@ -45,14 +55,15 @@ func CanonicalTarNameForPath(path string) (string, error) {
 
 func Zip(path string, opts ...Option) (io.ReadCloser, error) {
 	options := Options{
-		format: Config.CompressionFormat,
+		includeSourceDir: false,
+		format:           Config.CompressionFormat,
 	}
 	for _, o := range opts {
 		o(&options)
 	}
 	return archive.TarWithOptions(path, &archive.TarOptions{
-		IncludeSourceDir: false,
 		Compression:      options.format,
+		IncludeSourceDir: options.includeSourceDir,
 		ExcludePatterns: []string{
 			"*.git",
 		},
@@ -61,7 +72,8 @@ func Zip(path string, opts ...Option) (io.ReadCloser, error) {
 
 func Unzip(tarArchive io.Reader, destPath string, opts ...Option) error {
 	options := Options{
-		format: Config.CompressionFormat,
+		includeSourceDir: true,
+		format:           Config.CompressionFormat,
 	}
 	for _, o := range opts {
 		o(&options)
@@ -70,7 +82,7 @@ func Unzip(tarArchive io.Reader, destPath string, opts ...Option) error {
 		destPath,
 		&archive.TarOptions{
 			Compression:      options.format,
-			IncludeSourceDir: true,
+			IncludeSourceDir: options.includeSourceDir,
 		},
 	)
 }
