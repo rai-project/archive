@@ -39,6 +39,10 @@ func CompressStream(dest io.Writer, opts ...Option) (io.WriteCloser, error) {
 	return archive.CompressStream(dest, options.format)
 }
 
+func CanonicalTarNameForPath(path string) (string, error) {
+	return archive.CanonicalTarNameForPath(path)
+}
+
 func Zip(path string, opts ...Option) (io.ReadCloser, error) {
 	options := Options{
 		format: Config.CompressionFormat,
