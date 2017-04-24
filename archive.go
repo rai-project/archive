@@ -72,7 +72,7 @@ func Zip(path string, opts ...Option) (io.ReadCloser, error) {
 
 func Unzip(tarArchive io.Reader, destPath string, opts ...Option) error {
 	options := Options{
-		includeSourceDir: true,
+		includeSourceDir: false,
 		format:           Config.CompressionFormat,
 	}
 	for _, o := range opts {
@@ -83,6 +83,7 @@ func Unzip(tarArchive io.Reader, destPath string, opts ...Option) error {
 		&archive.TarOptions{
 			Compression:      options.format,
 			IncludeSourceDir: options.includeSourceDir,
+			NoLchown:         true,
 		},
 	)
 }
