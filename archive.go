@@ -3,7 +3,7 @@ package archive
 import (
 	"io"
 
-	"github.com/moby/moby/pkg/archive"
+	"github.com/docker/docker/pkg/archive"
 )
 
 func MimeType(opts ...Option) string {

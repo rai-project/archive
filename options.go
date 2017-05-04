@@ -3,7 +3,7 @@ package archive
 import (
 	"strings"
 
-	"github.com/moby/moby/pkg/archive"
+	"github.com/docker/docker/pkg/archive"
 )
 
 type Options struct {
