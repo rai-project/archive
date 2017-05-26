@@ -5,7 +5,7 @@ import:
 - package: github.com/k0kubun/pp
   version: ~2.3.0
 - package: github.com/docker/docker
-  version: ~17.5.0-ce-rc3
+  version: ~17.5.0-ce
   subpackages:
   - pkg/archive
 - package: github.com/rai-project/config
