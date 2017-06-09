@@ -1,11 +1,11 @@
 package: github.com/rai-project/archive
 import:
 - package: github.com/sirupsen/logrus
-  version: ~1.0.0
+  version: ^1.0.0
 - package: github.com/Sirupsen/logrus
   repo: git@github.com:/sirupsen/logrus
   vcs: git
-  version: ~1.0.0
+  version: ^1.0.0
 - package: github.com/k0kubun/pp
   version: ~2.3.0
 - package: github.com/docker/docker
@@ -18,7 +18,7 @@ import:
 testImport:
 - package: github.com/GeertJohan/go-sourcepath
 - package: github.com/Unknwon/com
-  version: ~1.0.0
+  version: ^1.0.0
 - package: github.com/stretchr/testify
   version: ~1.1.4
   subpackages:
