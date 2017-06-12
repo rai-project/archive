@@ -15,7 +15,8 @@ addons:
     packages:
     - glide
 install:
-  - glide install --force 
+  - glide install --force --strip-vendor
+  - rm -fr vendor/github.com/Sirupsen/logrus
   - go build
 script:
   - echo "Skip tests..."
