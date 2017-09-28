@@ -14,12 +14,14 @@ import (
 	"github.com/stretchr/testify/suite"
 )
 
+// ArchiveTestSuite ...
 type ArchiveTestSuite struct {
 	fixturesDir string
 	tmpDir      string
 	suite.Suite
 }
 
+// TestCompressStream ...
 func (suite *ArchiveTestSuite) TestCompressStream() {
 	t := suite.T()
 	fixturesDir := suite.fixturesDir
@@ -32,6 +34,7 @@ func (suite *ArchiveTestSuite) TestCompressStream() {
 	assert.NoError(t, err, "failed to compress stream")
 }
 
+// TestZip ...
 func (suite *ArchiveTestSuite) TestZip() {
 	t := suite.T()
 	fixturesDir := suite.fixturesDir
@@ -54,6 +57,7 @@ func (suite *ArchiveTestSuite) TestZip() {
 	assert.NotEqual(t, 0, sz, "file size must not be 0")
 }
 
+// TestDecompressStream ...
 func (suite *ArchiveTestSuite) TestDecompressStream() {
 	t := suite.T()
 	fixturesDir := suite.fixturesDir
@@ -71,6 +75,7 @@ func (suite *ArchiveTestSuite) TestDecompressStream() {
 	defer decompressedReader.Close()
 }
 
+// TestArchive ...
 func TestArchive(t *testing.T) {
 	tmpDir := Config.TempDir
 	if Config.TempDir == "" {
@@ -88,6 +93,7 @@ func TestArchive(t *testing.T) {
 	)
 }
 
+// TestMain ...
 func TestMain(m *testing.M) {
 	os.Setenv("DEBUG", "TRUE")
 	os.Setenv("VERBOSE", "TRUE")

@@ -18,20 +18,24 @@ type archiveConfig struct {
 	done                    chan struct{}       `json:"-" config:"-"`
 }
 
+// Config ...
 var (
 	Config = &archiveConfig{
 		done: make(chan struct{}),
 	}
 )
 
+// ConfigName ...
 func (archiveConfig) ConfigName() string {
 	return "Archive"
 }
 
+// SetDefaults ...
 func (a *archiveConfig) SetDefaults() {
 	vipertags.SetDefaults(a)
 }
 
+// Read ...
 func (a *archiveConfig) Read() {
 	defer close(a.done)
 	vipertags.Fill(a)
@@ -45,14 +49,17 @@ func (a *archiveConfig) Read() {
 	a.CompressionFormat = parseFormat(a.CompressionFormatString)
 }
 
+// Wait ...
 func (c archiveConfig) Wait() {
 	<-c.done
 }
 
+// String ...
 func (c archiveConfig) String() string {
 	return pp.Sprintln(c)
 }
 
+// Debug ...
 func (c archiveConfig) Debug() {
 	pp.Println("Archive Config = ", c)
 }

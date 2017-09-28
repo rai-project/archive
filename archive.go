@@ -6,6 +6,7 @@ import (
 	"github.com/docker/docker/pkg/archive"
 )
 
+// MimeType ...
 func MimeType(opts ...Option) string {
 	options := Options{
 		format: Config.CompressionFormat,
@@ -25,6 +26,7 @@ func MimeType(opts ...Option) string {
 	}
 }
 
+// Extension ...
 func Extension(opts ...Option) string {
 	options := Options{
 		format: Config.CompressionFormat,
@@ -35,10 +37,12 @@ func Extension(opts ...Option) string {
 	return options.format.Extension()
 }
 
+// DecompressStream ...
 func DecompressStream(reader io.Reader) (io.ReadCloser, error) {
 	return archive.DecompressStream(reader)
 }
 
+// CompressStream ...
 func CompressStream(dest io.Writer, opts ...Option) (io.WriteCloser, error) {
 	options := Options{
 		format: Config.CompressionFormat,
@@ -49,10 +53,12 @@ func CompressStream(dest io.Writer, opts ...Option) (io.WriteCloser, error) {
 	return archive.CompressStream(dest, options.format)
 }
 
+// CanonicalTarNameForPath ...
 func CanonicalTarNameForPath(path string) (string, error) {
 	return archive.CanonicalTarNameForPath(path)
 }
 
+// Zip ...
 func Zip(path string, opts ...Option) (io.ReadCloser, error) {
 	options := Options{
 		includeSourceDir: false,
@@ -70,6 +76,7 @@ func Zip(path string, opts ...Option) (io.ReadCloser, error) {
 	})
 }
 
+// Unzip ...
 func Unzip(tarArchive io.Reader, destPath string, opts ...Option) error {
 	options := Options{
 		includeSourceDir: false,
