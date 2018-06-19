@@ -11,7 +11,6 @@ import:
 - package: github.com/rai-project/config
 - package: github.com/rai-project/logger
 - package: github.com/rai-project/vipertags
-testImport:
 - package: github.com/GeertJohan/go-sourcepath
 - package: github.com/Unknwon/com
   version: ^1.0.0
