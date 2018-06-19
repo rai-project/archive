@@ -8,9 +8,9 @@ environment:
   GOPATH: C:\gopath
   matrix:
     - environment:
-      GOVERSION: 1.7.x
+      GOVERSION: 1.10.x
     - environment:
-      GOVERSION: 1.8
+      GOVERSION: 1.9
 
 platform:
 - x64
