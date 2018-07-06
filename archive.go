@@ -64,10 +64,10 @@ func CanonicalTarNameForPath(path string) (string, error) {
 	// into forward slashes. Since windows does not allow '/' or '\'
 	// in file names, it is mostly safe to replace however we must
 	// check just in case
-	if strings.Contains(p, "/") {
+	if strings.Contains(path, "/") {
 		return "", fmt.Errorf("Windows path contains forward slash: %s", p)
 	}
-	return strings.Replace(p, string(os.PathSeparator), "/", -1), nil
+	return strings.Replace(path, string(os.PathSeparator), "/", -1), nil
 }
 
 // Zip ...
