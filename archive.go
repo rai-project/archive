@@ -2,7 +2,9 @@ package archive
 
 import (
 	"io"
-
+  "os"
+  "fmt"
+  "runtime"
 	"github.com/docker/docker/pkg/archive"
 )
 
@@ -55,7 +57,17 @@ func CompressStream(dest io.Writer, opts ...Option) (io.WriteCloser, error) {
 
 // CanonicalTarNameForPath ...
 func CanonicalTarNameForPath(path string) (string, error) {
-	return archive.CanonicalTarNameForPath(path)
+  if runtime.GOOS != "windows" {
+    return path, nil
+  }
+  // windows: convert windows style relative path with backslashes
+	// into forward slashes. Since windows does not allow '/' or '\'
+	// in file names, it is mostly safe to replace however we must
+	// check just in case
+	if strings.Contains(p, "/") {
+		return "", fmt.Errorf("Windows path contains forward slash: %s", p)
+	}
+	return strings.Replace(p, string(os.PathSeparator), "/", -1), nil
 }
 
 // Zip ...
