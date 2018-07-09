@@ -8,13 +8,10 @@ environment:
   GOPATH: C:\gopath
   matrix:
     - environment:
-      GOVERSION: 1.10.x
-    - environment:
-      GOVERSION: 1.9
+      GOVERSION: 1.10.3
 
 platform:
 - x64
-
 init:
 - git config --global core.autocrlf input
 
@@ -26,15 +23,13 @@ install:
 - set Path=c:\go\bin;c:\gopath\bin;%Path%
 - go version
 - go env
-- go get github.com/Masterminds/glide
+- go get -u github.com/golang/dep/cmd/dep
 
 
 test_script:
-  - glide install --force
-  - rm -fr vendor/github.com/Sirupsen
-  - find vendor -type f -exec sed -i 's/Sirupsen/sirupsen/g' {} +
-  - go build
-  - go test -race -v .
+- C:\gopath\bin\dep ensure -v
+- go build
+- go test -race -v .
 
 build: false
 deploy: false
