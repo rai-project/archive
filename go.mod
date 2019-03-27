@@ -73,3 +73,5 @@ require (
 	gopkg.in/gemnasium/logrus-airbrake-hook.v2 v2.1.2 // indirect
 	gotest.tools v2.2.0+incompatible // indirect
 )
+
+replace github.com/Sirupsen/logrus => github.com/sirupsen/logrus v1.0.5
