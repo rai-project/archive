@@ -86,6 +86,8 @@ func Zip(path string, opts ...Option) (io.ReadCloser, error) {
 		IncludeSourceDir: options.includeSourceDir,
 		ExcludePatterns: []string{
 			"*.git",
+      ".rai_profile",
+      ".rai_profile.yml",
 		},
 	})
 }
